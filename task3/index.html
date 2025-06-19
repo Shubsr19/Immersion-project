@@ -7,10 +7,13 @@
 </head>
 <body>
 
+  <!-- ✅ Keep only this section for search -->
   <h2>Product Search</h2>
+
   <input type="text" id="searchInput" placeholder="Search for a product...">
   <button onclick="searchProducts()">Search</button>
 
+  <!-- Sorting -->
   <select id="sortSelect" onchange="applySort()">
     <option value="">Sort by</option>
     <option value="price-asc">Price: Low to High</option>
@@ -19,6 +22,22 @@
     <option value="rating-asc">Rating: Low to High</option>
   </select>
 
+  <!-- Filters -->
+  <div class="filters">
+    <select id="brandFilter" onchange="applyFilters()">
+      <option value="">Filter by Brand</option>
+    </select>
+
+    <select id="priceFilter" onchange="applyFilters()">
+      <option value="">Filter by Price</option>
+      <option value="0-100">Under $100</option>
+      <option value="100-500">$100 - $500</option>
+      <option value="500-1000">$500 - $1000</option>
+      <option value="1000-10000">Above $1000</option>
+    </select>
+  </div>
+
+  <!-- Product List -->
   <div class="product-container" id="productList"></div>
 
   <script src="script.js"></script>
