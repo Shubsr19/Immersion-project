@@ -1,0 +1,75 @@
+<%- include('_header', { title: 'Vehicle Inventory' }) %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-primary">
+        <i class="fas fa-car-side"></i> Vehicle Inventory
+    </h1>
+    <a href="/vehicles/new" class="btn btn-success">
+        <i class="fas fa-plus"></i> Add New Vehicle
+    </a>
+</div>
+
+<div class="mb-3">
+    <p class="text-muted">
+        <i class="fas fa-info-circle"></i> 
+        Total Vehicles: <strong><%= vehicles.length %></strong>
+    </p>
+</div>
+
+<% if (vehicles.length === 0) { %>
+    <div class="text-center py-5">
+        <i class="fas fa-car fa-3x text-muted mb-3"></i>
+        <h3 class="text-muted">No vehicles found</h3>
+        <p class="text-muted">Start by adding your first vehicle to the inventory.</p>
+        <a href="/vehicles/new" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add First Vehicle
+        </a>
+    </div>
+<% } else { %>
+    <div class="row">
+        <% vehicles.forEach(vehicle => { %>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card vehicle-card h-100 shadow-sm">
+                    <div class="position-relative">
+                        <img src="<%= vehicle.image %>" 
+                             class="card-img-top vehicle-image" 
+                             alt="<%= vehicle.vehicleName %>"
+                             onerror="this.src='https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=500'">
+                        <span class="brand-badge"><%= vehicle.brand %></span>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-dark">
+                            <%= vehicle.vehicleName %>
+                        </h5>
+                        <p class="card-text text-muted flex-grow-1">
+                            <%= vehicle.desc || 'No description available' %>
+                        </p>
+                        <div class="mt-auto">
+                            <div class="price-tag mb-3">
+                                $<%= vehicle.price.toLocaleString() %>
+                            </div>
+                            <div class="btn-group w-100" role="group">
+                                <a href="/vehicles/<%= vehicle.id %>" class="btn btn-outline-primary">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                                <a href="/vehicles/<%= vehicle.id %>/edit" class="btn btn-outline-warning">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <form style="display: inline;" method="POST" action="/vehicles/<%= vehicle.id %>/delete" 
+                                      onsubmit="return confirm('Are you sure you want to delete this vehicle?')">
+                                    <button type="submit" class="btn btn-outline-danger">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+<% } %>
+
+
+
+<%- include('_footer') %>

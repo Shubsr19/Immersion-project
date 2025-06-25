@@ -1,0 +1,80 @@
+<%- include('_header', { title: vehicle.vehicleName }) %>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="position-relative">
+                <img src="<%= vehicle.image %>" class="card-img-top" alt="<%= vehicle.vehicleName %>" 
+                     style="height: 300px; object-fit: cover;"
+                     onerror="this.src='https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=500'">
+                <span class="brand-badge"><%= vehicle.brand %></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0"><%= vehicle.vehicleName %></h3>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="text-muted">Brand:</label>
+                    <p class="h5 text-primary"><%= vehicle.brand %></p>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="text-muted">Price:</label>
+                    <p class="h4 text-success">$<%= vehicle.price.toLocaleString() %></p>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="text-muted">Description:</label>
+                    <p class="text-dark"><%= vehicle.desc || 'No description available' %></p>
+                </div>
+                
+                <div class="d-flex gap-2">
+                    <a href="/vehicles/<%= vehicle.id %>/edit" class="btn btn-warning">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <form style="display: inline;" method="POST" action="/vehicles/<%= vehicle.id %>/delete" 
+                          onsubmit="return confirm('Are you sure you want to delete this vehicle?')">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </form>
+                    <a href="/" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <div class="card border-info">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">
+                <i class="fas fa-code"></i> API Usage Examples
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Get this vehicle via API:</h6>
+                    <code class="d-block bg-light p-2 rounded">
+                        GET /api/vehicles/<%= vehicle.id %>
+                    </code>
+                </div>
+                <div class="col-md-6">
+                    <h6>Update this vehicle:</h6>
+                    <code class="d-block bg-light p-2 rounded">
+                        PUT /api/vehicles/<%= vehicle.id %>
+                    </code>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('_footer') %>
